@@ -1,38 +1,38 @@
 resource "aws_docdb_cluster" "ac--docdb" {
-  availability_zones              = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
-  backup_retention_period         = 1
-  cluster_identifier              = "docdb"
-  cluster_members                 = ["docdb"]
-  db_cluster_parameter_group_name = "prod-docdb-parameter-group"
-  db_subnet_group_name            = "main-vpc-db-subnets"
-  deletion_protection             = true
-  engine                          = "docdb"
-  engine_version                  = "4.0.0"
-  kms_key_id                      = "arn:aws:kms:eu-west-2:766176144542:key/9d37b450-2749-440d-843e-c6d56bfbc5ac"
-  master_username                 = "proddocdbadmin"
-  port                            = 27017
-  preferred_backup_window         = "00:00-00:30"
-  preferred_maintenance_window    = "wed:22:31-wed:23:01"
-  storage_encrypted               = true
-  vpc_security_group_ids          = ["sg-0b894407029c80409"]
+  availability_zones              = var.aws_docdb_cluster_availability_zones
+  backup_retention_period         = var.aws_docdb_cluster_backup_retention_period
+  cluster_identifier              = var.aws_docdb_cluster_cluster_identifier
+  cluster_members                 = var.aws_docdb_cluster_cluster_members
+  db_cluster_parameter_group_name = var.aws_docdb_cluster_db_cluster_parameter_group_name
+  db_subnet_group_name            = var.aws_docdb_cluster_db_subnet_group_name
+  deletion_protection             = var.aws_docdb_cluster_deletion_protection
+  engine                          = var.aws_docdb_cluster_engine
+  engine_version                  = var.aws_docdb_cluster_engine_version
+  kms_key_id                      = var.aws_docdb_cluster_kms_key_id
+  master_username                 = var.aws_docdb_cluster_master_username
+  port                            = var.aws_docdb_cluster_port
+  preferred_backup_window         = var.aws_docdb_cluster_preferred_backup_window
+  preferred_maintenance_window    = var.aws_docdb_cluster_preferred_maintenance_window
+  storage_encrypted               = var.aws_docdb_cluster_storage_encrypted
+  vpc_security_group_ids          = var.aws_docdb_cluster_vpc_security_group_ids
 }
 
 resource "aws_docdb_cluster_instance" "ac--docdb-1" {
-  auto_minor_version_upgrade   = true
-  availability_zone            = "eu-west-2a"
-  ca_cert_identifier           = "rds-ca-2019"
-  cluster_identifier           = "docdb"
-  engine                       = "docdb"
-  identifier                   = "docdb"
-  instance_class               = "db.r5.large"
-  preferred_maintenance_window = "tue:03:06-tue:03:36"
-  promotion_tier               = 1
+  auto_minor_version_upgrade   = var.aws_docdb_cluster_instance_auto_minor_version_upgrade
+  availability_zone            = var.aws_docdb_cluster_instance_availability_zone
+  ca_cert_identifier           = var.aws_docdb_cluster_instance_ca_cert_identifier
+  cluster_identifier           = var.aws_docdb_cluster_instance_cluster_identifier
+  engine                       = var.aws_docdb_cluster_instance_engine
+  identifier                   = var.aws_docdb_cluster_instance_identifier
+  instance_class               = var.aws_docdb_cluster_instance_instance_class
+  preferred_maintenance_window = var.aws_docdb_cluster_instance_preferred_maintenance_window
+  promotion_tier               = var.aws_docdb_cluster_instance_promotion_tier
 }
 
 resource "aws_docdb_cluster_parameter_group" "ac--prod-docdb-parameter-group" {
-  description = "Cluster Parameter Group for production MongoDB"
-  family      = "docdb4.0"
-  name        = "prod-docdb-parameter-group"
+  description = var.aws_docdb_cluster_parameter_group_description
+  family      = var.aws_docdb_cluster_parameter_group_family
+  name        = var.aws_docdb_cluster_parameter_group_name
 
   parameter {
     apply_method = "pending-reboot"
@@ -42,7 +42,7 @@ resource "aws_docdb_cluster_parameter_group" "ac--prod-docdb-parameter-group" {
 }
 
 resource "aws_docdb_subnet_group" "ac--main-vpc-db-subnets" {
-  description = "Private subnets for DBs"
-  name        = "main-vpc-db-subnets"
-  subnet_ids  = ["subnet-0f597fdaea877e775", "subnet-0fc2fa7eea70faa76"]
+  description = var.aws_docdb_subnet_group_description
+  name        = var.aws_docdb_subnet_group_name
+  subnet_ids  = var.aws_docdb_subnet_group_subnet_ids
 }

@@ -1,9 +1,9 @@
 resource "aws_cloudfront_cache_policy" "ac--4135ea2d-6df8-44a3-9df3-4b5a84be39ad" {
-  comment     = "Policy with caching disabled"
-  default_ttl = 0
-  max_ttl     = 0
-  min_ttl     = 0
-  name        = "Managed-CachingDisabled"
+  comment     = var.aws_cloudfront_cache_policy_comment
+  default_ttl = var.aws_cloudfront_cache_policy_default_ttl
+  max_ttl     = var.aws_cloudfront_cache_policy_max_ttl
+  min_ttl     = var.aws_cloudfront_cache_policy_min_ttl
+  name        = var.aws_cloudfront_cache_policy_name
 
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
@@ -24,11 +24,11 @@ resource "aws_cloudfront_cache_policy" "ac--4135ea2d-6df8-44a3-9df3-4b5a84be39ad
 }
 
 resource "aws_cloudfront_cache_policy" "ac--658327ea-f89d-4fab-a63d-7e88639e58f6" {
-  comment     = "Policy with caching enabled. Supports Gzip and Brotli compression."
-  default_ttl = 86400
-  max_ttl     = 31536000
-  min_ttl     = 1
-  name        = "Managed-CachingOptimized"
+  comment     = var.aws_cloudfront_cache_policy_comment
+  default_ttl = var.aws_cloudfront_cache_policy_default_ttl
+  max_ttl     = var.aws_cloudfront_cache_policy_max_ttl
+  min_ttl     = var.aws_cloudfront_cache_policy_min_ttl
+  name        = var.aws_cloudfront_cache_policy_name
 
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
@@ -49,8 +49,8 @@ resource "aws_cloudfront_cache_policy" "ac--658327ea-f89d-4fab-a63d-7e88639e58f6
 }
 
 resource "aws_cloudfront_distribution" "ac--E1DUJTCJ5XZ0L5" {
-  aliases               = ["solv-preview.prod.solv.co.ke"]
-  comment               = "solv-preview.prod.solv.co.ke"
+  aliases               = var.aws_cloudfront_distribution_aliases
+  comment               = var.aws_cloudfront_distribution_comment
 
   default_cache_behavior {
     allowed_methods             = ["GET", "HEAD", "OPTIONS"]
@@ -65,9 +65,9 @@ resource "aws_cloudfront_distribution" "ac--E1DUJTCJ5XZ0L5" {
     viewer_protocol_policy      = "redirect-to-https"
   }
 
-  enabled                = true
-  http_version           = "http2and3"
-  is_ipv6_enabled        = true
+  enabled                = var.aws_cloudfront_distribution_enabled
+  http_version           = var.aws_cloudfront_distribution_http_version
+  is_ipv6_enabled        = var.aws_cloudfront_distribution_is_ipv6_enabled
 
   origin {
     connection_attempts = 3
@@ -86,7 +86,7 @@ resource "aws_cloudfront_distribution" "ac--E1DUJTCJ5XZ0L5" {
     origin_id        = "solv-preview.prod.solv.co.ke"
   }
 
-  price_class = "PriceClass_All"
+  price_class = var.aws_cloudfront_distribution_price_class
 
   restrictions {
     geo_restriction {
@@ -103,8 +103,8 @@ resource "aws_cloudfront_distribution" "ac--E1DUJTCJ5XZ0L5" {
 }
 
 resource "aws_cloudfront_distribution" "ac--E1PXEJD82N9BRM" {
-  aliases               = ["prod-api.prod.solv.co.ke"]
-  comment               = "prod-api.prod.solv.co.ke"
+  aliases               = var.aws_cloudfront_distribution_aliases
+  comment               = var.aws_cloudfront_distribution_comment
 
   default_cache_behavior {
     allowed_methods             = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -120,9 +120,9 @@ resource "aws_cloudfront_distribution" "ac--E1PXEJD82N9BRM" {
     viewer_protocol_policy      = "redirect-to-https"
   }
 
-  enabled                = true
-  http_version           = "http2and3"
-  is_ipv6_enabled        = true
+  enabled                = var.aws_cloudfront_distribution_enabled
+  http_version           = var.aws_cloudfront_distribution_http_version
+  is_ipv6_enabled        = var.aws_cloudfront_distribution_is_ipv6_enabled
 
   origin {
     connection_attempts = 3
@@ -141,7 +141,7 @@ resource "aws_cloudfront_distribution" "ac--E1PXEJD82N9BRM" {
     origin_id        = "4t79rwsi0m"
   }
 
-  price_class = "PriceClass_All"
+  price_class = var.aws_cloudfront_distribution_price_class
 
   restrictions {
     geo_restriction {
@@ -156,12 +156,12 @@ resource "aws_cloudfront_distribution" "ac--E1PXEJD82N9BRM" {
     ssl_support_method             = "sni-only"
   }
 
-  web_acl_id = "arn:aws:wafv2:us-east-1:766176144542:global/webacl/solv_kenya_cloudfront_waf/b65e989a-6e99-465c-bba6-4d58ac028532"
+  web_acl_id = var.aws_cloudfront_distribution_web_acl_id
 }
 
 resource "aws_cloudfront_distribution" "ac--E1T7X2BKHSN5HV" {
-  aliases               = ["scf-anchor.solv.co.ke"]
-  comment               = "scf-anchor.solv.co.ke"
+  aliases               = var.aws_cloudfront_distribution_aliases
+  comment               = var.aws_cloudfront_distribution_comment
 
   default_cache_behavior {
     allowed_methods             = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -176,9 +176,9 @@ resource "aws_cloudfront_distribution" "ac--E1T7X2BKHSN5HV" {
     viewer_protocol_policy      = "redirect-to-https"
   }
 
-  enabled                = true
-  http_version           = "http2and3"
-  is_ipv6_enabled        = true
+  enabled                = var.aws_cloudfront_distribution_enabled
+  http_version           = var.aws_cloudfront_distribution_http_version
+  is_ipv6_enabled        = var.aws_cloudfront_distribution_is_ipv6_enabled
 
   origin {
     connection_attempts = 3
@@ -197,7 +197,7 @@ resource "aws_cloudfront_distribution" "ac--E1T7X2BKHSN5HV" {
     origin_id        = "scf-anchor.prod.solv.co.ke.s3-website.eu-west-2.amazonaws.com"
   }
 
-  price_class = "PriceClass_All"
+  price_class = var.aws_cloudfront_distribution_price_class
 
   restrictions {
     geo_restriction {
@@ -212,12 +212,12 @@ resource "aws_cloudfront_distribution" "ac--E1T7X2BKHSN5HV" {
     ssl_support_method             = "sni-only"
   }
 
-  web_acl_id = "arn:aws:wafv2:us-east-1:766176144542:global/webacl/solv_kenya_cloudfront_waf/b65e989a-6e99-465c-bba6-4d58ac028532"
+  web_acl_id = var.aws_cloudfront_distribution_web_acl_id
 }
 
 resource "aws_cloudfront_distribution" "ac--E2IQ1KB0IS7G52" {
-  aliases               = ["scf-fi.solv.co.ke"]
-  comment               = "scf-fi.solv.co.ke"
+  aliases               = var.aws_cloudfront_distribution_aliases
+  comment               = var.aws_cloudfront_distribution_comment
 
   default_cache_behavior {
     allowed_methods             = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -232,9 +232,9 @@ resource "aws_cloudfront_distribution" "ac--E2IQ1KB0IS7G52" {
     viewer_protocol_policy      = "redirect-to-https"
   }
 
-  enabled                = true
-  http_version           = "http2and3"
-  is_ipv6_enabled        = true
+  enabled                = var.aws_cloudfront_distribution_enabled
+  http_version           = var.aws_cloudfront_distribution_http_version
+  is_ipv6_enabled        = var.aws_cloudfront_distribution_is_ipv6_enabled
 
   origin {
     connection_attempts = 3
@@ -253,7 +253,7 @@ resource "aws_cloudfront_distribution" "ac--E2IQ1KB0IS7G52" {
     origin_id        = "scf-fi.prod.solv.co.ke.s3-website.eu-west-2.amazonaws.com"
   }
 
-  price_class = "PriceClass_All"
+  price_class = var.aws_cloudfront_distribution_price_class
 
   restrictions {
     geo_restriction {
@@ -268,12 +268,12 @@ resource "aws_cloudfront_distribution" "ac--E2IQ1KB0IS7G52" {
     ssl_support_method             = "sni-only"
   }
 
-  web_acl_id = "arn:aws:wafv2:us-east-1:766176144542:global/webacl/solv_kenya_cloudfront_waf/b65e989a-6e99-465c-bba6-4d58ac028532"
+  web_acl_id = var.aws_cloudfront_distribution_web_acl_id
 }
 
 resource "aws_cloudfront_distribution" "ac--E2LVO2EL0IWF6F" {
-  aliases = ["solv.co.ke"]
-  comment = "solv.prod.solv.co.ke"
+  aliases = var.aws_cloudfront_distribution_aliases
+  comment = var.aws_cloudfront_distribution_comment
 
   custom_error_response {
     error_caching_min_ttl = 10
@@ -295,9 +295,9 @@ resource "aws_cloudfront_distribution" "ac--E2LVO2EL0IWF6F" {
     viewer_protocol_policy      = "redirect-to-https"
   }
 
-  enabled                = true
-  http_version           = "http2"
-  is_ipv6_enabled        = true
+  enabled                = var.aws_cloudfront_distribution_enabled
+  http_version           = var.aws_cloudfront_distribution_http_version
+  is_ipv6_enabled        = var.aws_cloudfront_distribution_is_ipv6_enabled
 
   origin {
     connection_attempts = 3
@@ -316,7 +316,7 @@ resource "aws_cloudfront_distribution" "ac--E2LVO2EL0IWF6F" {
     origin_id        = "solv.prod.solv.co.ke.s3-website.eu-west-2.amazonaws.com"
   }
 
-  price_class = "PriceClass_All"
+  price_class = var.aws_cloudfront_distribution_price_class
 
   restrictions {
     geo_restriction {
@@ -333,8 +333,8 @@ resource "aws_cloudfront_distribution" "ac--E2LVO2EL0IWF6F" {
 }
 
 resource "aws_cloudfront_distribution" "ac--E2WBMAKUMDRYYD" {
-  aliases               = ["scf-onboard.solv.co.ke"]
-  comment               = "scf-onboard.solv.co.ke"
+  aliases               = var.aws_cloudfront_distribution_aliases
+  comment               = var.aws_cloudfront_distribution_comment
 
   default_cache_behavior {
     allowed_methods             = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -349,9 +349,9 @@ resource "aws_cloudfront_distribution" "ac--E2WBMAKUMDRYYD" {
     viewer_protocol_policy      = "redirect-to-https"
   }
 
-  enabled                = true
-  http_version           = "http2and3"
-  is_ipv6_enabled        = true
+  enabled                = var.aws_cloudfront_distribution_enabled
+  http_version           = var.aws_cloudfront_distribution_http_version
+  is_ipv6_enabled        = var.aws_cloudfront_distribution_is_ipv6_enabled
 
   origin {
     connection_attempts = 3
@@ -370,7 +370,7 @@ resource "aws_cloudfront_distribution" "ac--E2WBMAKUMDRYYD" {
     origin_id        = "scf-onboard.prod.solv.co.ke.s3-website.eu-west-2.amazonaws.com"
   }
 
-  price_class = "PriceClass_All"
+  price_class = var.aws_cloudfront_distribution_price_class
 
   restrictions {
     geo_restriction {
@@ -385,12 +385,12 @@ resource "aws_cloudfront_distribution" "ac--E2WBMAKUMDRYYD" {
     ssl_support_method             = "sni-only"
   }
 
-  web_acl_id = "arn:aws:wafv2:us-east-1:766176144542:global/webacl/solv_kenya_cloudfront_waf/b65e989a-6e99-465c-bba6-4d58ac028532"
+  web_acl_id = var.aws_cloudfront_distribution_web_acl_id
 }
 
 resource "aws_cloudfront_distribution" "ac--E3DYD00LLG0DC8" {
-  aliases               = ["scf-admin.solv.co.ke"]
-  comment               = "scf-admin.solv.co.ke"
+  aliases               = var.aws_cloudfront_distribution_aliases
+  comment               = var.aws_cloudfront_distribution_comment
 
   default_cache_behavior {
     allowed_methods             = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -405,9 +405,9 @@ resource "aws_cloudfront_distribution" "ac--E3DYD00LLG0DC8" {
     viewer_protocol_policy      = "redirect-to-https"
   }
 
-  enabled                = true
-  http_version           = "http2and3"
-  is_ipv6_enabled        = true
+  enabled                = var.aws_cloudfront_distribution_enabled
+  http_version           = var.aws_cloudfront_distribution_http_version
+  is_ipv6_enabled        = var.aws_cloudfront_distribution_is_ipv6_enabled
 
   origin {
     connection_attempts = 3
@@ -426,7 +426,7 @@ resource "aws_cloudfront_distribution" "ac--E3DYD00LLG0DC8" {
     origin_id        = "scf-admin.prod.solv.co.ke.s3-website.eu-west-2.amazonaws.com"
   }
 
-  price_class = "PriceClass_All"
+  price_class = var.aws_cloudfront_distribution_price_class
 
   restrictions {
     geo_restriction {
@@ -441,12 +441,12 @@ resource "aws_cloudfront_distribution" "ac--E3DYD00LLG0DC8" {
     ssl_support_method             = "sni-only"
   }
 
-  web_acl_id = "arn:aws:wafv2:us-east-1:766176144542:global/webacl/solv_kenya_cloudfront_waf/b65e989a-6e99-465c-bba6-4d58ac028532"
+  web_acl_id = var.aws_cloudfront_distribution_web_acl_id
 }
 
 resource "aws_cloudfront_distribution" "ac--E3H682TP0TU18I" {
-  aliases               = ["scf-dealer.solv.co.ke"]
-  comment               = "scf-dealer.solv.co.ke"
+  aliases               = var.aws_cloudfront_distribution_aliases
+  comment               = var.aws_cloudfront_distribution_comment
 
   default_cache_behavior {
     allowed_methods             = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -461,9 +461,9 @@ resource "aws_cloudfront_distribution" "ac--E3H682TP0TU18I" {
     viewer_protocol_policy      = "redirect-to-https"
   }
 
-  enabled                = true
-  http_version           = "http2and3"
-  is_ipv6_enabled        = true
+  enabled                = var.aws_cloudfront_distribution_enabled
+  http_version           = var.aws_cloudfront_distribution_http_version
+  is_ipv6_enabled        = var.aws_cloudfront_distribution_is_ipv6_enabled
 
   origin {
     connection_attempts = 3
@@ -482,7 +482,7 @@ resource "aws_cloudfront_distribution" "ac--E3H682TP0TU18I" {
     origin_id        = "scf-dealer.prod.solv.co.ke.s3-website.eu-west-2.amazonaws.com"
   }
 
-  price_class = "PriceClass_All"
+  price_class = var.aws_cloudfront_distribution_price_class
 
   restrictions {
     geo_restriction {
@@ -497,12 +497,12 @@ resource "aws_cloudfront_distribution" "ac--E3H682TP0TU18I" {
     ssl_support_method             = "sni-only"
   }
 
-  web_acl_id = "arn:aws:wafv2:us-east-1:766176144542:global/webacl/solv_kenya_cloudfront_waf/b65e989a-6e99-465c-bba6-4d58ac028532"
+  web_acl_id = var.aws_cloudfront_distribution_web_acl_id
 }
 
 resource "aws_cloudfront_distribution" "ac--E3ZC7IGN7QFMH" {
-  aliases               = ["scf-master-anchor.solv.co.ke"]
-  comment               = "scf-master-anchor.solv.co.ke"
+  aliases               = var.aws_cloudfront_distribution_aliases
+  comment               = var.aws_cloudfront_distribution_comment
 
   default_cache_behavior {
     allowed_methods             = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -517,9 +517,9 @@ resource "aws_cloudfront_distribution" "ac--E3ZC7IGN7QFMH" {
     viewer_protocol_policy      = "redirect-to-https"
   }
 
-  enabled                = true
-  http_version           = "http2and3"
-  is_ipv6_enabled        = true
+  enabled                = var.aws_cloudfront_distribution_enabled
+  http_version           = var.aws_cloudfront_distribution_http_version
+  is_ipv6_enabled        = var.aws_cloudfront_distribution_is_ipv6_enabled
 
   origin {
     connection_attempts = 3
@@ -538,7 +538,7 @@ resource "aws_cloudfront_distribution" "ac--E3ZC7IGN7QFMH" {
     origin_id        = "scf-master-anchor.prod.solv.co.ke.s3-website.eu-west-2.amazonaws.com"
   }
 
-  price_class = "PriceClass_All"
+  price_class = var.aws_cloudfront_distribution_price_class
 
   restrictions {
     geo_restriction {
@@ -553,12 +553,12 @@ resource "aws_cloudfront_distribution" "ac--E3ZC7IGN7QFMH" {
     ssl_support_method             = "sni-only"
   }
 
-  web_acl_id = "arn:aws:wafv2:us-east-1:766176144542:global/webacl/solv_kenya_cloudfront_waf/b65e989a-6e99-465c-bba6-4d58ac028532"
+  web_acl_id = var.aws_cloudfront_distribution_web_acl_id
 }
 
 resource "aws_cloudfront_distribution" "ac--E47AN0NXSMUPP" {
-  aliases               = ["s3pdf-kenya.prod.solv.co.ke"]
-  comment               = "Craftsilicon PDF document"
+  aliases               = var.aws_cloudfront_distribution_aliases
+  comment               = var.aws_cloudfront_distribution_comment
 
   default_cache_behavior {
     allowed_methods             = ["GET", "HEAD"]
@@ -573,9 +573,9 @@ resource "aws_cloudfront_distribution" "ac--E47AN0NXSMUPP" {
     viewer_protocol_policy      = "redirect-to-https"
   }
 
-  enabled                = true
-  http_version           = "http2and3"
-  is_ipv6_enabled        = true
+  enabled                = var.aws_cloudfront_distribution_enabled
+  http_version           = var.aws_cloudfront_distribution_http_version
+  is_ipv6_enabled        = var.aws_cloudfront_distribution_is_ipv6_enabled
 
   origin {
     connection_attempts = 3
@@ -594,7 +594,7 @@ resource "aws_cloudfront_distribution" "ac--E47AN0NXSMUPP" {
     origin_id        = "aea0e0c63cb8a4a12b912cca7f07d6f6-2086604438.eu-west-2.elb.amazonaws.com"
   }
 
-  price_class = "PriceClass_All"
+  price_class = var.aws_cloudfront_distribution_price_class
 
   restrictions {
     geo_restriction {
@@ -609,5 +609,5 @@ resource "aws_cloudfront_distribution" "ac--E47AN0NXSMUPP" {
     ssl_support_method             = "sni-only"
   }
 
-  web_acl_id = "arn:aws:wafv2:us-east-1:766176144542:global/webacl/solv_kenya_cloudfront_waf/b65e989a-6e99-465c-bba6-4d58ac028532"
+  web_acl_id = var.aws_cloudfront_distribution_web_acl_id
 }

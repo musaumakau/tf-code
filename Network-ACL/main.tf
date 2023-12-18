@@ -21,8 +21,8 @@ resource "aws_network_acl" "ac--acl-00e80543776de8b96" {
     to_port    = 0
   }
 
-  subnet_ids = ["subnet-05a7709f7ea1ab238", "subnet-078af4ec8efe88431", "subnet-087e5c32cbaca1cd8", "subnet-0a7061207da3fd3a1"]
-  vpc_id     = "vpc-0fedac722f1953c41"
+  subnet_ids = var.aws_network_acl_subnet_ids
+  vpc_id     = var.aws_network_acl_vpc_id
 }
 
 resource "aws_network_acl" "ac--acl-025f2c9fb1f6e34f2" {
@@ -125,6 +125,6 @@ resource "aws_network_acl" "ac--acl-025f2c9fb1f6e34f2" {
     to_port    = 3389
   }
 
-  subnet_ids = ["subnet-002ad57466d0cfd46", "subnet-0124b4e97562ebbd7", "subnet-036ada20d56a38f43", "subnet-0428e0711a4ca2507", "subnet-09aa7e3eabd5bae59", "subnet-0d715c5c159eae0fb", "subnet-0f597fdaea877e775", "subnet-0fc2fa7eea70faa76"]
-  vpc_id     = "vpc-0a776fe934cdc9011"
+  subnet_ids = var.aws_network_acl_subnet_ids
+  vpc_id     = var.aws_network_acl_vpc_id
 }

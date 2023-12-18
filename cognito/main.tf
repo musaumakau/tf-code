@@ -4,7 +4,7 @@ resource "aws_cognito_user_pool" "ac--solv-admin-userpool-Kenya" {
     allow_admin_create_user_only = false
   }
 
-  deletion_protection  = "INACTIVE"
+  deletion_protection  = var.aws_cognito_user_pool_deletion_protection
 
   email_configuration {
     email_sending_account = "COGNITO_DEFAULT"
@@ -14,8 +14,8 @@ resource "aws_cognito_user_pool" "ac--solv-admin-userpool-Kenya" {
     user_migration      = "arn:aws:lambda:eu-west-2:766176144542:function:cognito-migration"
   }
 
-  mfa_configuration = "OFF"
-  name              = "solv-admin-userpool-Kenya"
+  mfa_configuration = var.aws_cognito_user_pool_mfa_configuration
+  name              = var.aws_cognito_user_pool_name
 
   password_policy {
     minimum_length                   = 8
@@ -112,7 +112,7 @@ resource "aws_cognito_user_pool" "ac--solv-admin-userpool-Kenya" {
     }
   }
 
-  username_attributes              = ["email"]
+  username_attributes              = var.aws_cognito_user_pool_username_attributes
 
   verification_message_template {
     default_email_option = "CONFIRM_WITH_CODE"
@@ -125,7 +125,7 @@ resource "aws_cognito_user_pool" "ac--solv-connect-email-mobile-login-pool-kenya
     allow_admin_create_user_only = false
   }
 
-  deletion_protection  = "INACTIVE"
+  deletion_protection  = var.aws_cognito_user_pool_deletion_protection
 
   email_configuration {
     email_sending_account = "COGNITO_DEFAULT"
@@ -138,8 +138,8 @@ resource "aws_cognito_user_pool" "ac--solv-connect-email-mobile-login-pool-kenya
     verify_auth_challenge_response = "arn:aws:lambda:eu-west-2:766176144542:function:verify-custom-lambda-function-prod-primer-3e490yYdFEo8"
   }
 
-  mfa_configuration = "OFF"
-  name              = "solv-connect-email-mobile-login-pool-kenya"
+  mfa_configuration = var.aws_cognito_user_pool_mfa_configuration
+  name              = var.aws_cognito_user_pool_name
 
   password_policy {
     minimum_length                   = 32
@@ -262,8 +262,8 @@ resource "aws_cognito_user_pool" "ac--solv-connect-email-mobile-login-pool-kenya
     }
   }
 
-  sms_authentication_message       = "Your authentication code is {####}. "
-  username_attributes              = ["email", "phone_number"]
+  sms_authentication_message       = var.aws_cognito_user_pool_sms_authentication_message
+  username_attributes              = var.aws_cognito_user_pool_username_attributes
 
   verification_message_template {
     default_email_option = "CONFIRM_WITH_CODE"
